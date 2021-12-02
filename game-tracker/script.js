@@ -92,10 +92,22 @@ window.onload = () => {
           <img src="${oferta.thumb}" alt="${oferta.title}">
         </figure>
 
-        <section>
-          <small class="preco-normal">$ ${oferta.normalPrice}</small>
-          <h5 class="preco-oferta">$ ${oferta.salePrice}</h5>
-        </section> 
+        <div>
+          <section>
+            <button>DETALHES</button>
+          </section>
+
+          <section>
+            <small class="preco-normal">$ ${oferta.normalPrice}</small>
+            <h5 class="preco-oferta">$ ${oferta.salePrice}</h5>
+          </section>
+
+          <section>
+            <h5>
+              ${oferta.salePrice === "0,00" ? "GRÁTIS" : Math.round((parseInt(oferta.salePrice)/parseInt(oferta.normalPrice))*100)-100 + "%"}
+            </h5>
+          </section>
+        </div>
       </article>
       `;
   });
