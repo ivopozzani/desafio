@@ -21,13 +21,13 @@
     <link rel="stylesheet" href="estilo.css" />
     <script>
       if (
-        "serviceWorker" in navigator &&
-        !window.location.host.includes("localhost") &&
-        window.location.host.includes("http")
+        'serviceWorker' in navigator &&
+        !window.location.host.includes('localhost') &&
+        window.location.host.includes('http')
       ) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.register("./sw.js");
-        });
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+        })
       }
     </script>
     <noscript>
@@ -43,6 +43,31 @@
     <h2>Ofertas</h2>
 
     <main>
+      <label>
+        <input
+          id="oferta-search"
+          type="search"
+          placeholder="Procurar"
+          aria-label="Pesquisar Jogos em Oferta"
+        />
+      </label>
+
+      <label for="ordenar">Ordenar por</label>
+      <input
+        list="ordenar-lista"
+        id="ordenar"
+        name="ordenar"
+        placeholder="% de Desconto"
+        onfocus="this.value=''"
+        aria-label="Ordenar Jogos em Oferta"
+      />
+      <datalist id="ordenar-lista">
+        <option value="% de Desconto"></option>
+        <option value="Maior Preço"></option>
+        <option value="Menor Preço"></option>
+        <option value="Título"></option>
+      </datalist>
+
       <article id="jogos-lista"></article>
     </main>
 
