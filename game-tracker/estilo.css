@@ -1,13 +1,22 @@
 :root {
+  /* Colors */
   --primario: #0b1641;
   --secundario: #c70160;
   --sucesso: #16857b;
   --texto: #ffffff;
+
+  /* Fonts */
+  --title-font-size: 1.25em;
+  --subtitle-font-size: 0.875em;
+  --link-font-size: 0.75em;
+  --paragraph-font-size: 0.625em;
 }
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial,
     Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,16 +32,104 @@ body {
   color: var(--texto);
 }
 
-figure {
-  margin: 0;
+/* Cards de Jogos em Promoção*/
+.oferta {
+  height: 11.25em;
+  width: 19em;
+  background-color: var(--primario);
+  box-shadow: 0px 3.18725px 3.18725px rgba(0, 0, 0, 0.25);
+  border-radius: 6.3745px;
+  margin: 0 auto 1.25em auto;
+  position: relative;
 }
 
-.preco-normal {
-  text-decoration: line-through;
+.oferta header {
+  position: relative;
+  top: 6.5em;
+}
+
+.oferta .titulo-jogo {
+  font-size: var(--title-font-size);
+  font-weight: 300;
+  font-style: normal;
+  text-indent: 11px;
+  height: 1.1875em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 14em;
+}
+
+.oferta figure {
+  height: 5.9375em;
+  width: 19em;
+  position: absolute;
+  top: 0;
+  border-radius: 6.3745px 6.3745px 0px 0px;
+  overflow: hidden;
+}
+
+.oferta img {
   display: block;
+  width: 19em;
 }
 
-.preco-oferta {
-  margin: 4px 0;
-  font-size: 16pt;
+.oferta div {
+  position: absolute;
+  bottom: 0;
+  padding: 0 0.625em 0.6875em 0.6875em;
+  width: 19em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.oferta .detalhes-jogo {
+  background-color: var(--secundario);
+  width: 5.75em;
+  height: 1.875em;
+  border-radius: 6.15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oferta .detalhes-jogo h5 {
+  font-size: var(--subtitle-font-size);
+  font-weight: 700;
+}
+
+.oferta .preco-jogo {
+  margin-right: 0.625em;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.oferta .preco-normal {
+  font-size: var(--paragraph-font-size);
+  font-weight: 200;
+  text-align: right;
+  text-decoration: line-through;
+}
+
+.oferta .preco-oferta {
+  font-size: var(--subtitle-font-size);
+  font-weight: 700;
+  text-align: right;
+}
+
+.oferta .desconto-jogo {
+  background-color: var(--sucesso);
+  width: 4em;
+  height: 1.9375em;
+  border-radius: 6.37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oferta .desconto-jogo h5 {
+  font-size: var(--subtitle-font-size);
+  font-weight: 700;
 }

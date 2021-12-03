@@ -83,7 +83,7 @@ window.onload = () => {
     jogosLista.innerHTML += `
       <article class="oferta">
         <header>
-          <h4>
+          <h4 class="titulo-jogo">
             ${oferta.title}
           </h4>
         </header>
@@ -93,16 +93,16 @@ window.onload = () => {
         </figure>
 
         <div>
-          <section>
-            <button>DETALHES</button>
+          <section class="detalhes-jogo">
+            <h5>DETALHES</h5>
           </section>
 
-          <section>
+          <section class="preco-jogo">
             <small class="preco-normal">$ ${oferta.normalPrice}</small>
             <h5 class="preco-oferta">$ ${oferta.salePrice}</h5>
           </section>
 
-          <section>
+          <section class="desconto-jogo">
             <h5>
               ${oferta.salePrice === "0,00" ? "GRÁTIS" : Math.round((parseInt(oferta.salePrice)/parseInt(oferta.normalPrice))*100)-100 + "%"}
             </h5>
