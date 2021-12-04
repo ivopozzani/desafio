@@ -40,27 +40,32 @@
       <img src="assets/logo-horizontal.svg" alt="Logo Game Tracker" />
     </header>
 
-    <h2>Ofertas</h2>
-
     <main>
-      <label>
-        <input
-          id="oferta-search"
-          type="search"
-          placeholder="Procurar"
-          aria-label="Pesquisar Jogos em Oferta"
-        />
-      </label>
+      <h2>Ofertas</h2>
+      <!-------------Inputs-------------->
+      <div class="flex-input">
+        <label>
+          <input
+            id="oferta-search"
+            type="search"
+            placeholder="Procurar"
+            aria-label="Pesquisar Jogos em Oferta"
+          />
+        </label>
 
-      <label for="ordenar">Ordenar por</label>
-      <input
-        list="ordenar-lista"
-        id="ordenar"
-        name="ordenar"
-        placeholder="% de Desconto"
-        onfocus="this.value=''"
-        aria-label="Ordenar Jogos em Oferta"
-      />
+        <div class="flex-ordenar">
+          <label for="ordenar">Ordenar por</label>
+          <input
+            list="ordenar-lista"
+            id="ordenar"
+            name="ordenar"
+            placeholder="% de Desconto"
+            onfocus="this.value=''"
+            aria-label="Ordenar Jogos em Oferta"
+          />
+        </div>
+      </div>
+
       <datalist id="ordenar-lista">
         <option value="% de Desconto"></option>
         <option value="Maior Preço"></option>
@@ -68,11 +73,15 @@
         <option value="Título"></option>
       </datalist>
 
+      <!-------------Cards de Jogos em Promoção-------------->
       <article id="jogos-lista"></article>
 
-      <button>Carregar Mais</button>
+      <!-------------Botão "Carregar Mais"-------------->
+      <div class="button-wrapper">
+        <button class="more-content" type="button">Carregar Mais</button>
+      </div>
     </main>
-
+    <!-------------Rodapé-------------->
     <footer id="footer">
       <img src="assets/logo-icone.svg" alt="Icone Game Tracker" />
       <p>

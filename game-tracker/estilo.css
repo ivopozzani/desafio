@@ -39,13 +39,82 @@ body {
   color: var(--texto);
 }
 
+/* Cabeçalho */
 #header {
-  height: 3.125rem;
   background-color: var(--primario);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 3.125rem;
+  position: fixed;
+  top: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Corpo da Página */
+main {
+  margin-top: 4.125rem;
+}
+
+main h2 {
+  font-size: var(--title-font-size);
+  font-weight: var(--font-weight-3);
+  width: 100%;
+  line-height: 1.3125rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Inputs */
+.flex-input {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0.1875rem 0.5rem 1.4375rem 0.5rem;
+}
+
+input[type='search'] {
+  background-color: var(--primario);
+  background-image: url(assets/pesquisa.svg);
+  background-repeat: no-repeat;
+  background-position: 4px 4px;
+  color: var(--texto);
+  font-size: var(--subtitle-font-size);
+  font-weight: var(--font-weight-2);
+  text-indent: 2.6875rem;
+  width: 10.875rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.flex-ordenar {
+  display: flex;
+  flex-flow: column;
+}
+
+.flex-ordenar label {
+  font-size: var(--paragraph-font-size);
+  text-align: center;
+  line-height: 0.75rem;
+  vertical-align: middle;
+}
+
+input[list='ordenar-lista'] {
+  background-color: var(--primario);
+  color: var(--texto);
+  font-size: var(--subtitle-font-size);
+  font-weight: var(--font-weight-2);
+  text-indent: 0.5rem;
+  width: 7.625rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 8px;
+  margin-top: 0.25rem;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 /* Cards de Jogos em Promoção*/
@@ -148,6 +217,24 @@ body {
 
 .oferta .desconto-jogo h5 {
   font-size: var(--subtitle-font-size);
+}
+
+/* Botão "Carregar Mais" */
+.button-wrapper {
+  margin: 0.625rem auto 2rem auto;
+  text-align: center;
+}
+
+.button-wrapper .more-content {
+  background-color: var(--primario);
+  color: var(--texto);
+  font-size: var(--title-font-size);
+  font-weight: var(--font-weight-2);
+  width: 19rem;
+  height: 3.125rem;
+  border-radius: 8px;
+  border: 0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 /* Rodapé */
