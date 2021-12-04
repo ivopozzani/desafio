@@ -1,15 +1,17 @@
 :root {
-  /* Colors */
+  /* Cores */
   --primario: #0b1641;
   --secundario: #c70160;
   --sucesso: #16857b;
   --texto: #ffffff;
 
-  /* Fonts */
-  --title-font-size: 1.25em;
-  --subtitle-font-size: 0.875em;
-  --link-font-size: 0.75em;
-  --paragraph-font-size: 0.625em;
+  /* Fontes */
+  --title-font-size: 1.25rem;
+  --subtitle-font-size: 0.875rem;
+  --link-font-size: 0.75rem;
+  --paragraph-font-size: 0.625rem;
+  --font-weight-2: 200;
+  --font-weight-3: 300;
 }
 
 * {
@@ -18,8 +20,13 @@
   box-sizing: border-box;
   font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial,
     Helvetica, sans-serif;
+  font-weight: 700;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -32,62 +39,74 @@ body {
   color: var(--texto);
 }
 
+#header {
+  height: 3.125rem;
+  background-color: var(--primario);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Cards de Jogos em Promoção*/
 .oferta {
-  height: 11.25em;
-  width: 19em;
+  height: 11.25rem;
+  width: 19rem;
   background-color: var(--primario);
   box-shadow: 0px 3.18725px 3.18725px rgba(0, 0, 0, 0.25);
   border-radius: 6.3745px;
-  margin: 0 auto 1.25em auto;
+  margin: 0 auto 1.25rem auto;
   position: relative;
 }
 
 .oferta header {
   position: relative;
-  top: 6.5em;
+  top: 6.5rem;
 }
 
 .oferta .titulo-jogo {
   font-size: var(--title-font-size);
-  font-weight: 300;
+  font-weight: var(--font-weight-3);
   font-style: normal;
-  text-indent: 11px;
-  height: 1.1875em;
+  text-indent: 0.6875rem;
+  vertical-align: center;
+  line-height: 1.3125rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 14em;
+  max-width: 18rem;
 }
 
 .oferta figure {
-  height: 5.9375em;
-  width: 19em;
+  height: 5.9375rem;
+  width: 19rem;
   position: absolute;
   top: 0;
   border-radius: 6.3745px 6.3745px 0px 0px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .oferta img {
   display: block;
-  width: 19em;
+  width: 19rem;
 }
 
 .oferta div {
   position: absolute;
   bottom: 0;
-  padding: 0 0.625em 0.6875em 0.6875em;
-  width: 19em;
+  padding: 0 0.625rem 0.6875rem 0.6875rem;
+  width: 19rem;
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
 }
 
 .oferta .detalhes-jogo {
   background-color: var(--secundario);
-  width: 5.75em;
-  height: 1.875em;
+  width: 5.75rem;
+  height: 1.875rem;
   border-radius: 6.15px;
   display: flex;
   align-items: center;
@@ -96,11 +115,10 @@ body {
 
 .oferta .detalhes-jogo h5 {
   font-size: var(--subtitle-font-size);
-  font-weight: 700;
 }
 
 .oferta .preco-jogo {
-  margin-right: 0.625em;
+  margin-right: 0.625rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -108,21 +126,20 @@ body {
 
 .oferta .preco-normal {
   font-size: var(--paragraph-font-size);
-  font-weight: 200;
+  font-weight: var(--font-weight-2);
   text-align: right;
   text-decoration: line-through;
 }
 
 .oferta .preco-oferta {
   font-size: var(--subtitle-font-size);
-  font-weight: 700;
   text-align: right;
 }
 
 .oferta .desconto-jogo {
   background-color: var(--sucesso);
-  width: 4em;
-  height: 1.9375em;
+  width: 4rem;
+  height: 1.9375rem;
   border-radius: 6.37px;
   display: flex;
   align-items: center;
@@ -131,5 +148,38 @@ body {
 
 .oferta .desconto-jogo h5 {
   font-size: var(--subtitle-font-size);
-  font-weight: 700;
+}
+
+/* Rodapé */
+#footer {
+  background-color: var(--primario);
+  padding: 1.375rem 0.5rem 0.4375rem 0.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#footer p {
+  font-size: var(--paragraph-font-size);
+  font-weight: var(--font-weight-3);
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 0.9375rem;
+  margin: 0.875rem 0 0.75rem 0;
+}
+
+#footer .about-links {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#footer .about-links a {
+  font-size: var(--link-font-size);
+  color: var(--texto);
+  text-align: center;
+  text-decoration: none;
+  line-height: 1.375rem;
+  margin-bottom: 0.5rem;
 }
