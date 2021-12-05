@@ -1,5 +1,3 @@
-const jogosLista = document.getElementById("jogos-lista");
-
 let ofertas = [
   {
     title: "RAGE 2",
@@ -77,38 +75,60 @@ let ofertas = [
 ];
 
 window.onload = () => {
-  jogosLista.innerHTML = "";
+  // Seletores do nós HTML //
+  const jogosLista = document.getElementById("jogos-lista");
+  const opcaoFiltro = document.getElementById("oferta-search");
+  
+  // Função que realiza o filtro dos jogos de acordo com o digitado no "search input" // 
+  function handleSearch (event) {
+    const gameTitle = event.currentTarget.value;
+    
+    const oferta = ofertas.filter((oferta) => {
+      return oferta.title.toLowerCase().search(gameTitle.toLowerCase()) !== -1 
+    });
+    
+    jogosListaHtml(oferta);
+  };
 
-  ofertas.map((oferta) => {
-    jogosLista.innerHTML += `
-      <article class="oferta">
-        <header>
-          <h4 class="titulo-jogo">
-            ${oferta.title}
-          </h4>
-        </header>
+  // Criação do HTML com a lista de jogos filtrados //
+  function jogosListaHtml (ofertas) {
+    jogosLista.innerHTML = "";
 
-        <figure>
-          <img src="${oferta.thumb}" alt="${oferta.title}">
-        </figure>
+    ofertas.map((oferta) => {
+      jogosLista.innerHTML += `
+        <article class="oferta">
+          <header>
+            <h4 class="titulo-jogo">
+              ${oferta.title}
+            </h4>
+          </header>
+  
+          <figure>
+            <img src="${oferta.thumb}" alt="${oferta.title}">
+          </figure>
+  
+          <div>
+            <section class="detalhes-jogo">
+              <h5>DETALHES</h5>
+            </section>
+  
+            <section class="preco-jogo">
+              <small class="preco-normal">$ ${oferta.normalPrice}</small>
+              <h5 class="preco-oferta">$ ${oferta.salePrice}</h5>
+            </section>
+  
+            <section class="desconto-jogo">
+              <h5>
+                ${oferta.salePrice === "0,00" ? "GRÁTIS" : Math.round((parseInt(oferta.salePrice)/parseInt(oferta.normalPrice))*100)-100 + "%"}
+              </h5>
+            </section>
+          </div>
+        </article>
+        `;
+    });
+  };
 
-        <div>
-          <section class="detalhes-jogo">
-            <h5>DETALHES</h5>
-          </section>
+  opcaoFiltro.addEventListener('keyup', handleSearch);
 
-          <section class="preco-jogo">
-            <small class="preco-normal">$ ${oferta.normalPrice}</small>
-            <h5 class="preco-oferta">$ ${oferta.salePrice}</h5>
-          </section>
-
-          <section class="desconto-jogo">
-            <h5>
-              ${oferta.salePrice === "0,00" ? "GRÁTIS" : Math.round((parseInt(oferta.salePrice)/parseInt(oferta.normalPrice))*100)-100 + "%"}
-            </h5>
-          </section>
-        </div>
-      </article>
-      `;
-  });
+  jogosListaHtml(ofertas);
 };
