@@ -1,3 +1,4 @@
+let gameTitle = "";
 let ofertas = [
   {
     title: "RAGE 2",
@@ -75,18 +76,19 @@ let ofertas = [
 ];
 
 window.onload = () => {
-  // Seletores do nós HTML //
+  // Seletores de nós HTML //
   const jogosLista = document.getElementById("jogos-lista");
   const opcaoFiltro = document.getElementById("oferta-search");
-  
+  const opcaoOrdenar = document.getElementById("ordenar");
+
   // Função que realiza o filtro dos jogos de acordo com o digitado no "search input" // 
   function handleSearch (event) {
-    const gameTitle = event.currentTarget.value;
+    event.type === "keyup" ? gameTitle = event.currentTarget.value : null;
     
     const oferta = ofertas.filter((oferta) => {
       return oferta.title.toLowerCase().search(gameTitle.toLowerCase()) !== -1 
     });
-    
+
     jogosListaHtml(oferta);
   };
 
@@ -94,6 +96,18 @@ window.onload = () => {
   function jogosListaHtml (ofertas) {
     jogosLista.innerHTML = "";
 
+    //Ordenação da lista de jogos//
+    if (opcaoOrdenar.value === 'Maior Preço') {ofertas.sort((a, b) => {
+      if (parseInt(a.salePrice) > parseInt(b.salePrice)) {return -1}
+    })} else if (opcaoOrdenar.value === 'Menor Preço') {ofertas.sort((a, b) => {
+      if (parseInt(a.salePrice) < parseInt(b.salePrice)) {return -1}
+    })} else if (opcaoOrdenar.value === 'Título') {ofertas.sort((a, b) => {
+      if (a.title < b.title) {return -1}
+    })} else {ofertas.sort((a, b) => {
+      if (((parseInt(a.salePrice)/parseInt(a.normalPrice))) < ((parseInt(b.salePrice)/parseInt(b.normalPrice)))) {return -1}
+    })}
+
+    //Criação do HTML //
     ofertas.map((oferta) => {
       jogosLista.innerHTML += `
         <article class="oferta">
@@ -129,6 +143,7 @@ window.onload = () => {
   };
 
   opcaoFiltro.addEventListener('keyup', handleSearch);
+  opcaoOrdenar.addEventListener('change', handleSearch);
 
-  jogosListaHtml(ofertas);
+jogosListaHtml (ofertas);
 };
