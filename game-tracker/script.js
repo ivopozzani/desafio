@@ -152,10 +152,10 @@ window.onload = () => {
     });
   };
 
+jogosListaHtml (ofertas);
+
 opcaoFiltro.addEventListener('keyup', handleSearch);
 opcaoOrdenar.addEventListener('change', handleSearch);
-
-jogosListaHtml (ofertas);
 };
 
 HttpRequest();
