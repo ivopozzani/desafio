@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { CadastroService } from './cadastro.service'
 
 @Component({
   selector: 'app-cadastro-ofertas',
@@ -6,16 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cadastro-ofertas.component.scss']
 })
 export class CadastroOfertasComponent implements OnInit {
-
   lojas = [
     { id: 1, nome: 'Epic' },
     { id: 2, nome: 'Origin' },
-    { id: 3, nome: 'Steam' },
-  ];
+    { id: 3, nome: 'Steam' }
+  ]
 
-  constructor() { }
+  constructor(public cadastroservice: CadastroService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  get editaOferta() {
+    return this.cadastroservice.getOferta()
   }
-
 }

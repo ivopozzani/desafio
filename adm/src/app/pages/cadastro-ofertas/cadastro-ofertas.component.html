@@ -6,28 +6,40 @@
       <div class="campos">
         <mat-form-field appearance="outline">
           <mat-label>ID</mat-label>
-          <input matInput placeholder="ID do jogo" />
+          <input matInput placeholder="ID do jogo" [value]="editaOferta.id" />
         </mat-form-field>
       </div>
 
       <div class="campos">
         <mat-form-field appearance="outline">
           <mat-label>Título</mat-label>
-          <input matInput placeholder="Título do jogo" />
+          <input
+            matInput
+            placeholder="Título do jogo"
+            [value]="editaOferta.titulo"
+          />
         </mat-form-field>
       </div>
 
       <div class="campos">
         <mat-form-field appearance="outline">
           <mat-label>Preço</mat-label>
-          <input matInput placeholder="Preço do jogo" />
+          <input
+            matInput
+            placeholder="Preço do jogo"
+            [value]="editaOferta.preco"
+          />
         </mat-form-field>
       </div>
 
       <div class="campos">
         <mat-form-field appearance="outline">
           <mat-label>Preço com desconto</mat-label>
-          <input matInput placeholder="Preço com desconto" />
+          <input
+            matInput
+            placeholder="Preço com desconto"
+            [value]="editaOferta.precoDesconto"
+          />
         </mat-form-field>
       </div>
 
