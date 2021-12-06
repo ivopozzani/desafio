@@ -5,7 +5,8 @@ import { Oferta } from 'src/app/oferta'
   providedIn: 'root'
 })
 export class CadastroService {
-  oferta: Oferta | null = null
+  oferta: Oferta = null
+  dataSource2: Oferta[] = []
 
   getEditaOferta(oferta: Oferta): void {
     this.oferta = oferta
@@ -13,6 +14,10 @@ export class CadastroService {
 
   getOferta() {
     return this.oferta
+  }
+
+  getDataSource() {
+    return this.dataSource2
   }
 
   clearForm() {

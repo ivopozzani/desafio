@@ -1,70 +1,105 @@
 <section>
   <div class="container">
     <h2>Cadastro de Ofertas</h2>
+    <form [formGroup]="cadastroForm">
+      <div class="grid">
+        <div class="campos">
+          <mat-form-field appearance="outline">
+            <mat-label>ID</mat-label>
+            <input
+              matInput
+              placeholder="ID do jogo"
+              [value]="editaOferta.id"
+              formControlName="id"
+            />
+          </mat-form-field>
+          <div class="erro" *ngIf="cadastroForm.get('id').errors?.required">
+            *Campo obrigatório
+          </div>
+          <div class="erro" *ngIf="cadastroForm.get('id').errors?.pattern">
+            *Somente Números
+          </div>
+        </div>
 
-    <div class="grid">
-      <div class="campos">
-        <mat-form-field appearance="outline">
-          <mat-label>ID</mat-label>
-          <input matInput placeholder="ID do jogo" [value]="editaOferta.id" />
-        </mat-form-field>
-      </div>
+        <div class="campos">
+          <mat-form-field appearance="outline">
+            <mat-label>Título</mat-label>
+            <input
+              matInput
+              placeholder="Título do jogo"
+              [value]="editaOferta.titulo"
+              formControlName="titulo"
+            />
+          </mat-form-field>
+          <div class="erro" *ngIf="cadastroForm.get('titulo').errors?.required">
+            *Campo obrigatório
+          </div>
+        </div>
 
-      <div class="campos">
-        <mat-form-field appearance="outline">
-          <mat-label>Título</mat-label>
-          <input
-            matInput
-            placeholder="Título do jogo"
-            [value]="editaOferta.titulo"
-          />
-        </mat-form-field>
-      </div>
+        <div class="campos">
+          <mat-form-field appearance="outline">
+            <mat-label>Preço</mat-label>
+            <input
+              matInput
+              placeholder="Preço do jogo"
+              [value]="editaOferta.preco"
+              formControlName="preco"
+            />
+          </mat-form-field>
+          <div class="erro" *ngIf="cadastroForm.get('preco').errors?.required">
+            *Campo obrigatório
+          </div>
+        </div>
 
-      <div class="campos">
-        <mat-form-field appearance="outline">
-          <mat-label>Preço</mat-label>
-          <input
-            matInput
-            placeholder="Preço do jogo"
-            [value]="editaOferta.preco"
-          />
-        </mat-form-field>
-      </div>
+        <div class="campos">
+          <mat-form-field appearance="outline">
+            <mat-label>Preço com desconto</mat-label>
+            <input
+              matInput
+              placeholder="Preço com desconto"
+              [value]="editaOferta.precoDesconto"
+              formControlName="precoDesconto"
+            />
+          </mat-form-field>
+          <div
+            class="erro"
+            *ngIf="cadastroForm.get('precoDesconto').errors?.required"
+          >
+            *Campo obrigatório
+          </div>
+        </div>
 
-      <div class="campos">
-        <mat-form-field appearance="outline">
-          <mat-label>Preço com desconto</mat-label>
-          <input
-            matInput
-            placeholder="Preço com desconto"
-            [value]="editaOferta.precoDesconto"
-          />
-        </mat-form-field>
-      </div>
+        <div class="campos">
+          <mat-form-field appearance="outline">
+            <mat-label>Loja</mat-label>
+            <mat-select>
+              <mat-option
+                *ngFor="let loja of lojas; let i = index"
+                [value]="i + 1"
+                >{{ loja.nome }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-      <div class="campos">
-        <mat-form-field appearance="outline">
-          <mat-label>Loja</mat-label>
-          <mat-select>
-            <mat-option
-              *ngFor="let loja of lojas; let i = index"
-              [value]="i + 1"
-              >{{ loja.nome }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
+        <div class="campos">
+          <mat-form-field appearance="outline">
+            <mat-label>Descrição</mat-label>
+            <input matInput placeholder="" />
+          </mat-form-field>
+        </div>
       </div>
-
-      <div class="campos">
-        <mat-form-field appearance="outline">
-          <mat-label>Descrição</mat-label>
-          <input matInput placeholder="" />
-        </mat-form-field>
-      </div>
-    </div>
+    </form>
     <div class="campos">
-      <button mat-raised-button color="primary">Salvar</button>
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="cadastroForm.status !== 'VALID'"
+        (click)="novaOferta()"
+      >
+        Salvar
+      </button>
     </div>
   </div>
 </section>

@@ -1,4 +1,3 @@
-import { DataSource } from '@angular/cdk/collections'
 import { Component, OnInit } from '@angular/core'
 import { Oferta } from 'src/app/oferta'
 import { CadastroService } from '../cadastro-ofertas/cadastro.service'
@@ -10,17 +9,25 @@ import { CadastroService } from '../cadastro-ofertas/cadastro.service'
 })
 export class NossasOfertasComponent implements OnInit {
   displayedColumns: string[] = ['id', 'titulo', 'preco', 'precoDesconto']
-  dataSource: {}[] = []
+  dataSource: Oferta[] = []
 
-  constructor(public cadastroservice: CadastroService) {}
+  constructor(private cadastroservice: CadastroService) {}
 
   ngOnInit(): void {
-    this.dataSource = JSON.parse(
+    this.cadastroservice.dataSource2 = JSON.parse(
       window.localStorage.getItem('ofertas-game-tracker')
     )
   }
 
-  editaOferta(oferta: Oferta): void {
+  get dataSource2() {
+    return this.cadastroservice.getDataSource()
+  }
+
+  novaOferta(oferta: Oferta) {
+    this.dataSource.push(oferta)
+  }
+
+  editaOferta(oferta: Oferta) {
     this.cadastroservice.getEditaOferta(oferta)
   }
 

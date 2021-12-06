@@ -1,4 +1,14 @@
 import { Component, OnInit } from '@angular/core'
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from '@angular/forms'
+import { Oferta } from 'src/app/oferta'
+
 import { CadastroService } from './cadastro.service'
 
 @Component({
@@ -13,9 +23,24 @@ export class CadastroOfertasComponent implements OnInit {
     { id: 3, nome: 'Steam' }
   ]
 
-  constructor(public cadastroservice: CadastroService) {}
+  cadastroForm = new FormGroup({
+    id: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[0-9]*$')
+    ]),
+    titulo: new FormControl('', Validators.required),
+    preco: new FormControl('', Validators.required),
+    precoDesconto: new FormControl('', Validators.required)
+  })
+
+  constructor(private cadastroservice: CadastroService) {}
 
   ngOnInit(): void {}
+
+  novaOferta() {
+    this.cadastroservice.dataSource2.push(this.cadastroForm.value)
+    console.log(this.cadastroservice.dataSource2)
+  }
 
   get editaOferta() {
     return this.cadastroservice.getOferta()
