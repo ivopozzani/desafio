@@ -43,7 +43,9 @@ export class CadastroOfertasComponent implements OnInit {
       Validators.pattern(/^[0-9]+\.[0-9][0-9]$/),
       biggerThan('0.00'),
       isSmaller('preco')
-    ])
+    ]),
+    lojaId: new FormControl(null, Validators.required),
+    descricao: new FormControl(null)
   })
 
   onSubmit() {
