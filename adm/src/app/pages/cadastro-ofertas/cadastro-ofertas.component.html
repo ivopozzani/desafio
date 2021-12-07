@@ -14,6 +14,9 @@
           <div class="erro" *ngIf="cadastroForm.get('id').errors?.pattern">
             *Somente Números
           </div>
+          <div class="erro" *ngIf="cadastroForm.get('id').errors?.checkId">
+            *ID já existe: atribua outro valor
+          </div>
         </div>
 
         <div class="campos">

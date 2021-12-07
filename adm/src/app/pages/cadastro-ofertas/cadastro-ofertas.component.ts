@@ -29,7 +29,8 @@ export class CadastroOfertasComponent implements OnInit {
   cadastroForm = new FormGroup({
     id: new FormControl(null, [
       Validators.required,
-      Validators.pattern(/^[0-9]+$/)
+      Validators.pattern(/^[0-9]+$/),
+      checkId(this.cadastroservice.dataSource2)
     ]),
     titulo: new FormControl(null, Validators.required),
     preco: new FormControl(null, [
@@ -90,5 +91,36 @@ export function isSmaller(preco: string) {
 
     return null
   }
+  return validator
+}
+
+// Função que confere se uma ID já foi utilizada
+export function checkId(dados: Oferta[]) {
+  const validator = (formControl: FormControl) => {
+    if (!formControl.root || !(<FormGroup>formControl.root).controls) {
+      return null
+    }
+
+    const idField = (<FormGroup>formControl.root).get('id')
+
+    if (!idField) {
+      throw new Error('O campo "id" não foi encontrado')
+    }
+
+    let dataChecked = dados
+      .map(valores => {
+        if (valores.id === parseFloat(idField.value)) {
+          return true
+        }
+      })
+      .filter(v => v === true)
+
+    if (dataChecked.length > 0) {
+      return { checkId: dados }
+    }
+
+    return null
+  }
+
   return validator
 }
