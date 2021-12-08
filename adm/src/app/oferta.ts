@@ -3,4 +3,6 @@ export interface Oferta {
   titulo: string
   preco: string
   precoDesconto: string
+  lojaId?: number
+  descricao?: string | null
 }

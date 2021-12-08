@@ -105,6 +105,9 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <div class="erro" *ngIf="cadastroForm.get('lojaId').errors?.required">
+            *Campo obrigatório
+          </div>
         </div>
 
         <div class="campos">

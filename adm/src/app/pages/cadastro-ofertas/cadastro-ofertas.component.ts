@@ -6,6 +6,7 @@ import {
   ValidatorFn,
   Validators
 } from '@angular/forms'
+import { Router } from '@angular/router'
 import { Oferta } from 'src/app/oferta'
 import { CadastroService } from './cadastro.service'
 
@@ -21,7 +22,10 @@ export class CadastroOfertasComponent implements OnInit {
     { id: 3, nome: 'Steam' }
   ]
 
-  constructor(private cadastroservice: CadastroService) {}
+  constructor(
+    private cadastroservice: CadastroService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -48,8 +52,15 @@ export class CadastroOfertasComponent implements OnInit {
   })
 
   onSubmit() {
-    console.log(this.cadastroForm)
-    //this.cadastroForm.reset()
+    Object.keys(this.cadastroForm.controls).forEach(campo => {
+      const controle = this.cadastroForm.get(campo)
+      controle.markAsDirty()
+    })
+
+    this.cadastroservice.dataSource.push(this.cadastroForm.value)
+    this.cadastroForm.reset()
+    window.alert('Cadastro Realizado com Sucesso')
+    this.router.navigate(['/nossasofertas'])
   }
 
   get editaOferta() {
