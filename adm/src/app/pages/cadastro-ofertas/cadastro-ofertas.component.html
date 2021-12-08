@@ -6,7 +6,12 @@
         <div class="campos">
           <mat-form-field appearance="outline">
             <mat-label>ID</mat-label>
-            <input matInput placeholder="ID do jogo" formControlName="id" />
+            <input
+              type="number"
+              matInput
+              placeholder="ID do jogo"
+              formControlName="id"
+            />
           </mat-form-field>
           <div class="erro" *ngIf="cadastroForm.get('id').errors?.required">
             *Campo obrigatório

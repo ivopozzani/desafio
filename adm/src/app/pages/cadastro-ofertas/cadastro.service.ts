@@ -6,7 +6,13 @@ import { Oferta } from 'src/app/oferta'
 })
 export class CadastroService {
   oferta: Oferta = null
-  dataSource2: Oferta[] = []
+  dataSource: Oferta[] = []
+
+  constructor() {
+    this.dataSource = JSON.parse(
+      window.localStorage.getItem('ofertas-game-tracker')
+    )
+  }
 
   getEditaOferta(oferta: Oferta): void {
     this.oferta = oferta
@@ -17,7 +23,7 @@ export class CadastroService {
   }
 
   getDataSource() {
-    return this.dataSource2
+    return this.dataSource
   }
 
   clearForm() {

@@ -9,22 +9,13 @@ import { CadastroService } from '../cadastro-ofertas/cadastro.service'
 })
 export class NossasOfertasComponent implements OnInit {
   displayedColumns: string[] = ['id', 'titulo', 'preco', 'precoDesconto']
-  dataSource: Oferta[] = []
 
   constructor(private cadastroservice: CadastroService) {}
 
-  ngOnInit(): void {
-    this.cadastroservice.dataSource2 = JSON.parse(
-      window.localStorage.getItem('ofertas-game-tracker')
-    )
-  }
+  ngOnInit() {}
 
-  get dataSource2() {
+  get dataSource() {
     return this.cadastroservice.getDataSource()
-  }
-
-  novaOferta(oferta: Oferta) {
-    this.dataSource.push(oferta)
   }
 
   editaOferta(oferta: Oferta) {

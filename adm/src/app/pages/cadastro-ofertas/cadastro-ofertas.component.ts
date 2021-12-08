@@ -3,7 +3,6 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  ValidationErrors,
   ValidatorFn,
   Validators
 } from '@angular/forms'
@@ -30,7 +29,7 @@ export class CadastroOfertasComponent implements OnInit {
     id: new FormControl(null, [
       Validators.required,
       Validators.pattern(/^[0-9]+$/),
-      checkId(this.cadastroservice.dataSource2)
+      checkId(this.cadastroservice.dataSource)
     ]),
     titulo: new FormControl(null, Validators.required),
     preco: new FormControl(null, [
@@ -50,7 +49,6 @@ export class CadastroOfertasComponent implements OnInit {
 
   onSubmit() {
     console.log(this.cadastroForm)
-    //this.cadastroservice.dataSource2.push(this.cadastroForm.value)
     //this.cadastroForm.reset()
   }
 
@@ -111,7 +109,7 @@ export function checkId(dados: Oferta[]) {
 
     let dataChecked = dados
       .map(valores => {
-        if (valores.id === parseFloat(idField.value)) {
+        if (valores.id === idField.value) {
           return true
         }
       })
