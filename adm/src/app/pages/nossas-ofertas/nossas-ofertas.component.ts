@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { Oferta } from 'src/app/oferta'
 import { CadastroService } from '../cadastro-ofertas/cadastro.service'
 
@@ -10,7 +11,10 @@ import { CadastroService } from '../cadastro-ofertas/cadastro.service'
 export class NossasOfertasComponent implements OnInit {
   displayedColumns: string[] = ['id', 'titulo', 'preco', 'precoDesconto']
 
-  constructor(private cadastroservice: CadastroService) {}
+  constructor(
+    private cadastroservice: CadastroService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -19,10 +23,13 @@ export class NossasOfertasComponent implements OnInit {
   }
 
   editaOferta(oferta: Oferta) {
-    this.cadastroservice.getEditaOferta(oferta)
+    this.cadastroservice.atualiza = true
+    this.cadastroservice.oferta = oferta
+    this.router.navigate(['/cadastroofertas'])
   }
 
   addOferta() {
-    this.cadastroservice.clearForm()
+    this.cadastroservice.atualiza = false
+    this.router.navigate(["/cadastroofertas"])
   }
 }

@@ -5,7 +5,8 @@ import { Oferta } from 'src/app/oferta'
   providedIn: 'root'
 })
 export class CadastroService {
-  oferta: Oferta = null
+  oferta: Oferta
+  atualiza: boolean = false
   dataSource: Oferta[] = []
 
   constructor() {
@@ -18,20 +19,7 @@ export class CadastroService {
     this.oferta = oferta
   }
 
-  getOferta() {
-    return this.oferta
-  }
-
   getDataSource() {
     return this.dataSource
-  }
-
-  clearForm() {
-    this.oferta = {
-      id: 0,
-      titulo: '',
-      preco: '',
-      precoDesconto: ''
-    }
   }
 }

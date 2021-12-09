@@ -51,7 +51,7 @@
             *Campo obrigatório
           </div>
           <div class="erro" *ngIf="cadastroForm.get('preco').errors?.pattern">
-            *Formato de número inválido. Ex: "99.99"
+            *Formato de número inválido. Ex: "99,99"
           </div>
           <div
             class="erro"
@@ -80,7 +80,7 @@
             class="erro"
             *ngIf="cadastroForm.get('precoDesconto').errors?.pattern"
           >
-            *Formato de número inválido. Ex: "99.99"
+            *Formato de número inválido. Ex: "99,99"
           </div>
           <div
             class="erro"
@@ -124,7 +124,7 @@
           color="primary"
           [disabled]="cadastroForm.status !== 'VALID'"
         >
-          Salvar
+          {{ editaOferta === true ? "Atualizar" : "Salvar" }}
         </button>
       </div>
     </form>

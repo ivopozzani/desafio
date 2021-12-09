@@ -27,23 +27,30 @@ export class CadastroOfertasComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    if (this.cadastroservice.atualiza) {
+      this.atualizaOferta()
+    }
+  }
 
   cadastroForm = new FormGroup({
-    id: new FormControl(null, [
-      Validators.required,
-      Validators.pattern(/^[0-9]+$/),
-      checkId(this.cadastroservice.dataSource)
-    ]),
+    id: new FormControl(
+      { value: null, disabled: this.cadastroservice.atualiza },
+      [
+        Validators.required,
+        Validators.pattern(/^[0-9]+$/),
+        checkId(this.cadastroservice.dataSource)
+      ]
+    ),
     titulo: new FormControl(null, Validators.required),
     preco: new FormControl(null, [
       Validators.required,
-      Validators.pattern(/^[0-9]+\.[0-9][0-9]$/),
+      Validators.pattern(/^[0-9]+\,[0-9][0-9]$/),
       biggerThan('0.00')
     ]),
     precoDesconto: new FormControl(null, [
       Validators.required,
-      Validators.pattern(/^[0-9]+\.[0-9][0-9]$/),
+      Validators.pattern(/^[0-9]+\,[0-9][0-9]$/),
       biggerThan('0.00'),
       isSmaller('preco')
     ]),
@@ -57,14 +64,35 @@ export class CadastroOfertasComponent implements OnInit {
       controle.markAsDirty()
     })
 
-    this.cadastroservice.dataSource.push(this.cadastroForm.value)
-    this.cadastroForm.reset()
-    window.alert('Cadastro Realizado com Sucesso')
-    this.router.navigate(['/nossasofertas'])
+    if (this.cadastroservice.atualiza) {
+      const indice: number = this.cadastroservice.dataSource.indexOf(this.cadastroservice.oferta)
+      this.cadastroservice.dataSource = [...this.cadastroservice.dataSource.slice(0,indice), this.cadastroForm.value, ...this.cadastroservice.dataSource.slice(indice+1)]
+
+      this.cadastroservice.dataSource[indice].id = this.cadastroservice.oferta.id
+      this.cadastroForm.reset()
+      window.alert('Cadastro Atualizado com Sucesso')
+      this.router.navigate(['/nossasofertas'])
+    } else {      
+        this.cadastroservice.dataSource.push(this.cadastroForm.value)
+        this.cadastroForm.reset()
+        window.alert('Cadastro Realizado com Sucesso')
+        this.router.navigate(['/nossasofertas'])
+    }
   }
 
+  atualizaOferta() {
+    this.cadastroForm.patchValue({
+        id: this.cadastroservice.oferta.id,
+        titulo: this.cadastroservice.oferta.titulo,
+        preco: this.cadastroservice.oferta.preco,
+        precoDesconto: this.cadastroservice.oferta.precoDesconto,
+        lojaId: this.cadastroservice.oferta.lojaId,
+        descricao: this.cadastroservice.oferta.descricao
+    })
+  }
+  
   get editaOferta() {
-    return this.cadastroservice.getOferta()
+    return this.cadastroservice.atualiza
   }
 }
 
