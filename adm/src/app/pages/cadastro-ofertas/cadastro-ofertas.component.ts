@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core'
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators
+} from '@angular/forms'
+import { Router } from '@angular/router'
+import { Oferta } from 'src/app/oferta'
 import { CadastroService } from './cadastro.service'
 
 @Component({
@@ -13,11 +22,150 @@ export class CadastroOfertasComponent implements OnInit {
     { id: 3, nome: 'Steam' }
   ]
 
-  constructor(public cadastroservice: CadastroService) {}
+  constructor(
+    private cadastroservice: CadastroService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
-
-  get editaOferta() {
-    return this.cadastroservice.getOferta()
+  ngOnInit(): void {
+    // Chama a função que popula o formulário se estiver no modo de edição
+    if (this.cadastroservice.atualiza) {
+      this.atualizaOferta()
+    }
   }
+
+  // Configuração do formulário com os respectivos campos e validadores
+  cadastroForm = new FormGroup({
+    id: new FormControl(
+          { value: null, disabled: this.cadastroservice.atualiza },
+          [
+            Validators.required,
+            Validators.pattern(/^[0-9]+$/),
+            checkId(this.cadastroservice.dataSource)
+          ]
+    ),
+    titulo: new FormControl(null, Validators.required),
+    preco: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(/^[0-9]+\,[0-9][0-9]$/),
+          biggerThan('0.00')
+    ]),
+    precoDesconto: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(/^[0-9]+\,[0-9][0-9]$/),
+          biggerThan('0.00'),
+          isSmaller('preco')
+    ]),
+    lojaId: new FormControl(null, Validators.required),
+    descricao: new FormControl(null)
+  })
+
+  //Função da submissão do formulário
+  onSubmit() {
+    // Validação dos campos do formulário
+    Object.keys(this.cadastroForm.controls).forEach(campo => {
+      const controle = this.cadastroForm.get(campo)
+      controle.markAsDirty()
+    })
+    // Atualização do DataSource no modo atualizar oferta
+    if (this.cadastroservice.atualiza) {
+      const indice: number = this.cadastroservice.dataSource.indexOf(this.cadastroservice.oferta)
+      this.cadastroservice.dataSource = [...this.cadastroservice.dataSource.slice(0,indice), this.cadastroForm.value, ...this.cadastroservice.dataSource.slice(indice+1)]
+
+      this.cadastroservice.dataSource[indice].id = this.cadastroservice.oferta.id
+      this.cadastroForm.reset()
+      window.alert('Cadastro Atualizado com Sucesso')
+      this.router.navigate(['/nossasofertas'])
+    } else {  
+        // Inclusão de novas ofertas no DataSource    
+        this.cadastroservice.dataSource.push(this.cadastroForm.value)
+        this.cadastroForm.reset()
+        window.alert('Cadastro Realizado com Sucesso')
+        this.router.navigate(['/nossasofertas'])
+    }
+  }
+  // Função que popula os dados no formulário ao entrar no modo de edição de oferta
+  atualizaOferta() {
+    this.cadastroForm.patchValue({
+        id: this.cadastroservice.oferta.id,
+        titulo: this.cadastroservice.oferta.titulo,
+        preco: this.cadastroservice.oferta.preco,
+        precoDesconto: this.cadastroservice.oferta.precoDesconto,
+        lojaId: this.cadastroservice.oferta.lojaId,
+        descricao: this.cadastroservice.oferta.descricao
+    })
+  }
+  
+  // Captura o Booleano para mudar o botão no formulário
+  get editaOferta() {
+    return this.cadastroservice.atualiza
+  }
+}
+
+// Função que valida o preço maior que zero
+export function biggerThan(preco: string): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    if (parseFloat(control.value) <= parseFloat(preco)) {
+      return { biggerThan: { value: control.value } }
+    } else {
+      return null
+    }
+  }
+}
+
+// Função que valida o preçoDesconto menor que o preço normal
+export function isSmaller(preco: string) {
+  const validator = (formControl: FormControl) => {
+    if (preco == null) {
+      throw new Error('É necessário informar o preço')
+    }
+
+    if (!formControl.root || !(<FormGroup>formControl.root).controls) {
+      return null
+    }
+
+    const field = (<FormGroup>formControl.root).get(preco)
+
+    if (!field) {
+      throw new Error('É necessário informar um campo de formulário válido')
+    }
+
+    if (parseFloat(field.value) <= parseFloat(formControl.value)) {
+      return { isSmaller: preco }
+    }
+
+    return null
+  }
+  return validator
+}
+
+// Função que confere se uma ID já foi utilizada
+export function checkId(dados: Oferta[]) {
+  const validator = (formControl: FormControl) => {
+    if (!formControl.root || !(<FormGroup>formControl.root).controls) {
+      return null
+    }
+
+    const idField = (<FormGroup>formControl.root).get('id')
+
+    if (!idField) {
+      throw new Error('O campo "id" não foi encontrado')
+    }
+
+    let dataChecked = dados
+      .map(valores => {
+        if (valores.id === idField.value) {
+          return true
+        }
+      })
+      .filter(v => v === true)
+
+    if (dataChecked.length > 0) {
+      return { checkId: dados }
+    }
+
+    return null
+  }
+
+  return validator
 }

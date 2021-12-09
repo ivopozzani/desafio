@@ -1,70 +1,132 @@
 <section>
   <div class="container">
     <h2>Cadastro de Ofertas</h2>
+    <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
+      <div class="grid">
+        <div class="campos">
+          <mat-form-field appearance="outline">
+            <mat-label>ID</mat-label>
+            <input
+              type="number"
+              matInput
+              placeholder="ID do jogo"
+              formControlName="id"
+            />
+          </mat-form-field>
+          <div class="erro" *ngIf="cadastroForm.get('id').errors?.required">
+            *Campo obrigatório
+          </div>
+          <div class="erro" *ngIf="cadastroForm.get('id').errors?.pattern">
+            *Somente Números
+          </div>
+          <div class="erro" *ngIf="cadastroForm.get('id').errors?.checkId">
+            *ID já existe: atribua outro valor
+          </div>
+        </div>
 
-    <div class="grid">
-      <div class="campos">
-        <mat-form-field appearance="outline">
-          <mat-label>ID</mat-label>
-          <input matInput placeholder="ID do jogo" [value]="editaOferta.id" />
-        </mat-form-field>
-      </div>
+        <div class="campos">
+          <mat-form-field appearance="outline">
+            <mat-label>Título</mat-label>
+            <input
+              matInput
+              placeholder="Título do jogo"
+              formControlName="titulo"
+            />
+          </mat-form-field>
+          <div class="erro" *ngIf="cadastroForm.get('titulo').errors?.required">
+            *Campo obrigatório
+          </div>
+        </div>
 
-      <div class="campos">
-        <mat-form-field appearance="outline">
-          <mat-label>Título</mat-label>
-          <input
-            matInput
-            placeholder="Título do jogo"
-            [value]="editaOferta.titulo"
-          />
-        </mat-form-field>
-      </div>
+        <div class="campos">
+          <mat-form-field appearance="outline">
+            <mat-label>Preço</mat-label>
+            <input
+              matInput
+              placeholder="Preço do jogo"
+              formControlName="preco"
+            />
+          </mat-form-field>
+          <div class="erro" *ngIf="cadastroForm.get('preco').errors?.required">
+            *Campo obrigatório
+          </div>
+          <div class="erro" *ngIf="cadastroForm.get('preco').errors?.pattern">
+            *Formato de número inválido. Ex: "99,99"
+          </div>
+          <div
+            class="erro"
+            *ngIf="cadastroForm.get('preco').errors?.biggerThan"
+          >
+            *Preço deve ser maior que zero
+          </div>
+        </div>
 
-      <div class="campos">
-        <mat-form-field appearance="outline">
-          <mat-label>Preço</mat-label>
-          <input
-            matInput
-            placeholder="Preço do jogo"
-            [value]="editaOferta.preco"
-          />
-        </mat-form-field>
-      </div>
+        <div class="campos">
+          <mat-form-field appearance="outline">
+            <mat-label>Preço com desconto</mat-label>
+            <input
+              matInput
+              placeholder="Preço com desconto"
+              formControlName="precoDesconto"
+            />
+          </mat-form-field>
+          <div
+            class="erro"
+            *ngIf="cadastroForm.get('precoDesconto').errors?.required"
+          >
+            *Campo obrigatório
+          </div>
+          <div
+            class="erro"
+            *ngIf="cadastroForm.get('precoDesconto').errors?.pattern"
+          >
+            *Formato de número inválido. Ex: "99,99"
+          </div>
+          <div
+            class="erro"
+            *ngIf="cadastroForm.get('precoDesconto').errors?.isSmaller"
+          >
+            *Preço com desconto deve ser menor que o preço atual
+          </div>
+          <div
+            class="erro"
+            *ngIf="cadastroForm.get('precoDesconto').errors?.biggerThan"
+          >
+            *Preço deve ser maior que zero
+          </div>
+        </div>
 
-      <div class="campos">
-        <mat-form-field appearance="outline">
-          <mat-label>Preço com desconto</mat-label>
-          <input
-            matInput
-            placeholder="Preço com desconto"
-            [value]="editaOferta.precoDesconto"
-          />
-        </mat-form-field>
-      </div>
+        <div class="campos">
+          <mat-form-field appearance="outline">
+            <mat-label>Loja</mat-label>
+            <mat-select formControlName="lojaId">
+              <mat-option *ngFor="let loja of lojas" [value]="loja.id">
+                {{ loja.nome }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="erro" *ngIf="cadastroForm.get('lojaId').errors?.required">
+            *Campo obrigatório
+          </div>
+        </div>
 
-      <div class="campos">
-        <mat-form-field appearance="outline">
-          <mat-label>Loja</mat-label>
-          <mat-select>
-            <mat-option
-              *ngFor="let loja of lojas; let i = index"
-              [value]="i + 1"
-              >{{ loja.nome }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
+        <div class="campos">
+          <mat-form-field appearance="outline">
+            <mat-label>Descrição</mat-label>
+            <input matInput placeholder="" formControlName="descricao" />
+          </mat-form-field>
+        </div>
       </div>
-
       <div class="campos">
-        <mat-form-field appearance="outline">
-          <mat-label>Descrição</mat-label>
-          <input matInput placeholder="" />
-        </mat-form-field>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="cadastroForm.status !== 'VALID'"
+        >
+          {{ editaOferta === true ? "Atualizar" : "Salvar" }}
+        </button>
       </div>
-    </div>
-    <div class="campos">
-      <button mat-raised-button color="primary">Salvar</button>
-    </div>
+    </form>
   </div>
 </section>
