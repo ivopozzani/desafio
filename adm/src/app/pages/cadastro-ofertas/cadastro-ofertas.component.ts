@@ -28,42 +28,46 @@ export class CadastroOfertasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Chama a função que popula o formulário se estiver no modo de edição
     if (this.cadastroservice.atualiza) {
       this.atualizaOferta()
     }
   }
 
+  // Configuração do formulário com os respectivos campos e validadores
   cadastroForm = new FormGroup({
     id: new FormControl(
-      { value: null, disabled: this.cadastroservice.atualiza },
-      [
-        Validators.required,
-        Validators.pattern(/^[0-9]+$/),
-        checkId(this.cadastroservice.dataSource)
-      ]
+          { value: null, disabled: this.cadastroservice.atualiza },
+          [
+            Validators.required,
+            Validators.pattern(/^[0-9]+$/),
+            checkId(this.cadastroservice.dataSource)
+          ]
     ),
     titulo: new FormControl(null, Validators.required),
     preco: new FormControl(null, [
-      Validators.required,
-      Validators.pattern(/^[0-9]+\,[0-9][0-9]$/),
-      biggerThan('0.00')
+          Validators.required,
+          Validators.pattern(/^[0-9]+\,[0-9][0-9]$/),
+          biggerThan('0.00')
     ]),
     precoDesconto: new FormControl(null, [
-      Validators.required,
-      Validators.pattern(/^[0-9]+\,[0-9][0-9]$/),
-      biggerThan('0.00'),
-      isSmaller('preco')
+          Validators.required,
+          Validators.pattern(/^[0-9]+\,[0-9][0-9]$/),
+          biggerThan('0.00'),
+          isSmaller('preco')
     ]),
     lojaId: new FormControl(null, Validators.required),
     descricao: new FormControl(null)
   })
 
+  //Função da submissão do formulário
   onSubmit() {
+    // Validação dos campos do formulário
     Object.keys(this.cadastroForm.controls).forEach(campo => {
       const controle = this.cadastroForm.get(campo)
       controle.markAsDirty()
     })
-
+    // Atualização do DataSource no modo atualizar oferta
     if (this.cadastroservice.atualiza) {
       const indice: number = this.cadastroservice.dataSource.indexOf(this.cadastroservice.oferta)
       this.cadastroservice.dataSource = [...this.cadastroservice.dataSource.slice(0,indice), this.cadastroForm.value, ...this.cadastroservice.dataSource.slice(indice+1)]
@@ -72,14 +76,15 @@ export class CadastroOfertasComponent implements OnInit {
       this.cadastroForm.reset()
       window.alert('Cadastro Atualizado com Sucesso')
       this.router.navigate(['/nossasofertas'])
-    } else {      
+    } else {  
+        // Inclusão de novas ofertas no DataSource    
         this.cadastroservice.dataSource.push(this.cadastroForm.value)
         this.cadastroForm.reset()
         window.alert('Cadastro Realizado com Sucesso')
         this.router.navigate(['/nossasofertas'])
     }
   }
-
+  // Função que popula os dados no formulário ao entrar no modo de edição de oferta
   atualizaOferta() {
     this.cadastroForm.patchValue({
         id: this.cadastroservice.oferta.id,
@@ -91,6 +96,7 @@ export class CadastroOfertasComponent implements OnInit {
     })
   }
   
+  // Captura o Booleano para mudar o botão no formulário
   get editaOferta() {
     return this.cadastroservice.atualiza
   }

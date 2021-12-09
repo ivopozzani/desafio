@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
-
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -13,6 +12,7 @@ import { NossasOfertasComponent } from './pages/nossas-ofertas/nossas-ofertas.co
 import { MatButtonModule } from '@angular/material/button'
 import { MatTableModule } from '@angular/material/table'
 import { ReactiveFormsModule } from '@angular/forms'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,9 +29,10 @@ import { ReactiveFormsModule } from '@angular/forms'
     MatGridListModule,
     MatButtonModule,
     MatTableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule  
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {}
