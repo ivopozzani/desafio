@@ -54,24 +54,17 @@
         </label>
 
         <div class="flex-ordenar">
-          <label for="ordenar">Ordenar por:</label>
-          <input
-            list="ordenar-lista"
-            id="ordenar"
-            name="ordenar"
-            placeholder="% de Desconto"
-            onfocus="this.value=''"
-            aria-label="Ordenar Jogos em Oferta"
-          />
+          <label class="ordenar"
+            >Ordenar por:
+            <select name="ordenar">
+              <option value="% de Desconto">% de Desconto</option>
+              <option value="Maior Preço">Maior Preço</option>
+              <option value="Menor Preço">Menor Preço</option>
+              <option value="Título">Título</option>
+            </select>
+          </label>
         </div>
       </div>
-
-      <datalist id="ordenar-lista">
-        <option value="% de Desconto"></option>
-        <option value="Maior Preço"></option>
-        <option value="Menor Preço"></option>
-        <option value="Título"></option>
-      </datalist>
 
       <!-------------Cards de Jogos em Promoção-------------->
       <article id="jogos-lista"></article>
